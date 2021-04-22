@@ -5,11 +5,11 @@
 <div class="container">
 
   <div class="row">
-
+    {% block title %}
     <div class="col-lg-3">
-      {% block title %}
-      <!--<h1 class="my-3">カテゴリー</h1>-->
-      {% endblock %}
+      
+      <!-- <h1 class="my-3">カテゴリー</h1> -->
+      
       <div class="list-group my-3">
         <a href="#" class="list-group-item">新規投稿</a>
         <a href="{% url 'which_one:contact' %}" class="list-group-item">お問い合わせ</a>
@@ -17,6 +17,7 @@
       </div>
 
     </div>
+    {% endblock %}
     <!-- /.col-lg-3 -->
 
     <div class="col-lg-9">

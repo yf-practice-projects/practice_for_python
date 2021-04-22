@@ -1,4 +1,5 @@
 from django import forms
+from .models import Contact
 
 class ContactForm(forms.Form):
 
@@ -28,3 +29,6 @@ class ContactForm(forms.Form):
 
         self.fields['contents'].widget.attrs['class'] = 'form-control col-12 my-3'
         self.fields['contents'].widget.attrs['placeholder'] = 'お問い合わせ内容はこちら'
+    
+    def save():
+        pass
