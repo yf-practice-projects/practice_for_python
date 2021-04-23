@@ -61,6 +61,6 @@ class Contact(models.Model):
     name = models.TextField(verbose_name='お名前', blank=False, max_length=15)
     contact_type = models.TextField(verbose_name='種類', blank=False)
     contents = models.TextField(verbose_name='お問い合わせ内容')
-    
+
     def __str__(self):
         return self.name

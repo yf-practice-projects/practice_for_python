@@ -3,6 +3,10 @@ from .models import Contact
 
 class ContactForm(forms.Form):
 
+    # class Meta:
+    #     model = Contact
+    #     fields = ('name','contact_type','contents')
+
     CHOICES = (
     ("0", "ご意見"),
     ("1", "ご報告"),

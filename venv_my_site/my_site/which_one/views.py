@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404,redirect
 from django.views import generic
 from .forms import ContactForm
 from .models import Contact
@@ -9,12 +9,22 @@ from django.contrib import messages
 class Base_page(generic.TemplateView):
     template_name = 'which_one/index.html'
 
-class Contact_page(generic.FormView):
-    template_name = 'which_one/contact.html'
-    form_class = ContactForm
-    reverse_lazy('which_one:complete')
 
-    def form_valid(self, form):
-        form.save()  # 保存処理など
-        messages.add_message(self.request, messages.SUCCESS, 'ご連絡ありがとうございます。')  # メッセージ出力
-        return super().form_valid(form)
+class Contact_complete_page(generic.TemplateView):
+    template_name = 'which_one/cotact_complete.html'
+
+def contact(request):
+    form_class = ContactForm(request.POST or None)
+    if form_class.is_valid():
+        
+        contact.name = form_class.cleaned_data['name']
+        contact.contact_type = form_class.cleaned_data['contact_type']
+        contact.contents = form_class.cleaned_data['contents']
+
+        Contact.objects.create(
+            name=contact.name,
+            contact_type=contact.contact_type,
+            contents=contact.contents,
+        )
+        return redirect('which_one:complete')
+    return render(request, 'which_one/contact.html', {'form': form_class})
