@@ -1,11 +1,7 @@
 from django import forms
-from .models import Contact
+from .models import Contact, Questionnaire,Category
 
 class ContactForm(forms.Form):
-
-    # class Meta:
-    #     model = Contact
-    #     fields = ('name','contact_type','contents')
 
     CHOICES = (
     ("0", "ご意見"),
@@ -34,5 +30,14 @@ class ContactForm(forms.Form):
         self.fields['contents'].widget.attrs['class'] = 'form-control col-12 my-3'
         self.fields['contents'].widget.attrs['placeholder'] = 'お問い合わせ内容はこちら'
     
-    def save():
-        pass
+
+class NewQuestionnaireForm(forms.ModelForm):
+    class Meta:
+        model = Questionnaire
+        fields = ('title','overview','text_A','text_B','image_A','image_B','file_A','file_B','category')
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['image_A'].widget.attrs["onchange"] = "imgPreView(event);"
+        self.fields['image_B'].widget.attrs["onchange"] = "imgPreView(event);"
+        self.fields['category'].widget.attrs["onchange"] = "categoryView(event);"

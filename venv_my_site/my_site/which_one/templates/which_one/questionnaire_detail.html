@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+{% block title %}<h1></h1>{% endblock %}
+
+<table class="table">
+  <p>{{ Questionnaire.user }}</p>    
+  <p>{{ Questionnaire.title }}</p>
+  <p>{{ Questionnaire.overview }}</p>
+  <p>{{ Questionnaire.category.name }}</p>
+
+  {% if Questionnaire.category.key == 0 %}
+      <p>{{ Questionnaire.text_A }}</p>
+      <p>{{ Questionnaire.text_B }}</p>
+  {% elif Questionnaire.category.key == 1 %}
+      <p>{{ Questionnaire.image_A }}</p>
+      <td><img src="{{ Questionnaire.image_A.url }}/" width="500" height="500"/></td>
+      <p>{{ Questionnaire.image_B }}</p>
+      <td><img src="{{ Questionnaire.image_B.url }}/" width="500" height="500"/></td>
+  {% elif Questionnaire.category.key == 2 %}
+      <p>{{ Questionnaire.file_A }}</p>
+      <p>{{ Questionnaire.file_B }}</p>
+  {% endif %}
+  <p>投票数　 A : {{ Questionnaire.vote_A }} B : {{ Questionnaire.vote_B }}</p>
+</table>
+<form method="POST">
+{% csrf_token %}
+  <fieldset>
+    <input id="item-A" class="radio-inline__input" type="radio" name="accessible-radio" value="item-A" required/>
+    <label class="radio-inline__label" for="item-A">
+        左：A
+    </label>
+    <input id="item-B" class="radio-inline__input" type="radio" name="accessible-radio" value="item-B"/>
+    <label class="radio-inline__label" for="item-B">
+        右：B
+    </label>
+    <input type="submit" style="width:10%"　value="投票">
+  </fieldset>
+</form>
+{% endblock %}
