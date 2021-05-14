@@ -21,18 +21,18 @@ class Index_page(generic.ListView):
 
 
 """問い合わせページ"""
-def Contact(request):
+def Contact_page(request):
     form_class = ContactForm(request.POST or None)
     if form_class.is_valid():
-        
-        contact.name = form_class.cleaned_data['name']
-        contact.contact_type = form_class.cleaned_data['contact_type']
-        contact.contents = form_class.cleaned_data['contents']
+        # contact = ContactForm
+        # Contact_page.name = form_class.cleaned_data['name']
+        # Contact_page.contact_type = form_class.cleaned_data['contact_type']
+        # Contact_page.contents = form_class.cleaned_data['contents']
 
         Contact.objects.create(
-            name=contact.name,
-            contact_type=contact.contact_type,
-            contents=contact.contents,
+            name= form_class.cleaned_data['name'],
+            contact_type = form_class.cleaned_data['contact_type'],
+            contents = form_class.cleaned_data['contents']
         )
         return redirect('which_one:complete')
     return render(request, 'which_one/contact.html', {'form': form_class})
