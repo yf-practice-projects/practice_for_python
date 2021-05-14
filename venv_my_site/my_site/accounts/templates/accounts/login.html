@@ -1,21 +1,18 @@
 {% extends 'base.html' %}
+{% load static %}
+
 {% block content %}
-  {% block title %}<title>Login</title>{% endblock %}
-    
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,700">
-  {% if form.errors  %}
+{% block title %}<title>Login</title>{% endblock %}
+
+<link href="{% static 'css/login.css' %}" rel="stylesheet">
+<form name='form-login' method="POST">
+  {% csrf_token %}
+  {{form.username}}
+  {{form.password}}
+  {% if error %}
     <p>{{ error }}</p>
   {% endif %}
- 
-  {% for field in form %}
-  {% csrf_token %}
-  <div id="login">
-    <form name='form-login' method="POST">
-      <span>{{ field }}</span>
-      <span>{{ field.errors }}</span>
-  {% endfor %}
-  
-      <input type="submit" value="Login">
-    </form>
-  </div>
+  <input type="submit" value="Login">
+</form>
+
 {% endblock %}

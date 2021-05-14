@@ -1,27 +1,49 @@
 {% extends 'base.html' %}
 {% block content %}
 {% block title %}<h1></h1>{% endblock %}
+{% load extra_tags %}
 
 <table class="table">
-  <p>{{ Questionnaire.user }}</p>    
-  <p>{{ Questionnaire.title }}</p>
+  <small>{{ Questionnaire.user }}</small>    
+  <h1>{{ Questionnaire.title }}</h1>
+  <div class="detail-about"><small>投稿日：{{ Questionnaire.created_at }} 　投稿内容：{{ Questionnaire.category.name }}</small></div>
+  <h2 class="detail-overview">概要</h2>
   <p>{{ Questionnaire.overview }}</p>
-  <p>{{ Questionnaire.category.name }}</p>
 
+  <span class="votes">投票数　 A : {{ Questionnaire.vote_A }} B : {{ Questionnaire.vote_B }}</span>
+  {% if Questionnaire.vote_A == 0 and Questionnaire.vote_B == 0 %}
+  <div class="vote-rate">
+    <div id="nothing-vote" style="width:100%"></div>
+  </div>
+  {% else %}
+  <div class="vote-rate">
+    <div id="vote-B" style="width:{{ Questionnaire.vote_A | calc:Questionnaire.vote_B }}"></div>
+  </div>
+  {% endif %}
+  
   {% if Questionnaire.category.key == 0 %}
-      <p>{{ Questionnaire.text_A }}</p>
-      <p>{{ Questionnaire.text_B }}</p>
+    <div class="col-lg-6" id="box-container-A">
+      <h3>A : {{ Questionnaire.text_A }}</h3>
+    </div>  
+    <div class="col-lg-6 " id="box-container-B">
+      <h3>B : {{ Questionnaire.text_B }}</h3>
+    </div>
   {% elif Questionnaire.category.key == 1 %}
-      <p>{{ Questionnaire.image_A }}</p>
-      <td><img src="{{ Questionnaire.image_A.url }}/" width="500" height="500"/></td>
-      <p>{{ Questionnaire.image_B }}</p>
-      <td><img src="{{ Questionnaire.image_B.url }}/" width="500" height="500"/></td>
+    <div class="col-lg-6" id="box-container-A">
+      <h3>A</h3>
+      <img src="{{ Questionnaire.image_A.url }}/" width="250" height="auto"/>
+    </div> 
+    <div class="col-lg-6" id="box-container-B">
+      <h3>B</h3>
+      <img src="{{ Questionnaire.image_B.url }}/" width="250" height="auto"/>
+    </div>
   {% elif Questionnaire.category.key == 2 %}
       <p>{{ Questionnaire.file_A }}</p>
       <p>{{ Questionnaire.file_B }}</p>
   {% endif %}
-  <p>投票数　 A : {{ Questionnaire.vote_A }} B : {{ Questionnaire.vote_B }}</p>
+  </div>
 </table>
+
 <form method="POST">
 {% csrf_token %}
   <fieldset>

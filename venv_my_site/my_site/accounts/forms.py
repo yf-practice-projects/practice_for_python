@@ -44,3 +44,7 @@ class UserCreateForm(UserCreationForm):
 class LoginForm(forms.Form):
     username = forms.CharField(required=True)
     password = forms.CharField(label='パスワード', widget=forms.PasswordInput(), min_length=8)
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs["placeholder"] = "Username"
+        self.fields['password'].widget.attrs["placeholder"] = "Password"

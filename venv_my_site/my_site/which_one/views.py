@@ -20,10 +20,27 @@ class Index_page(generic.ListView):
         return questions
 
 
+"""問い合わせページ"""
+def Contact(request):
+    form_class = ContactForm(request.POST or None)
+    if form_class.is_valid():
+        
+        contact.name = form_class.cleaned_data['name']
+        contact.contact_type = form_class.cleaned_data['contact_type']
+        contact.contents = form_class.cleaned_data['contents']
+
+        Contact.objects.create(
+            name=contact.name,
+            contact_type=contact.contact_type,
+            contents=contact.contents,
+        )
+        return redirect('which_one:complete')
+    return render(request, 'which_one/contact.html', {'form': form_class})
+
+
 """問い合わせ完了ページ"""
 class Contact_complete_page(generic.TemplateView):
     template_name = 'which_one/cotact_complete.html'
-
 
 
 """新規作成ページ"""
@@ -57,6 +74,7 @@ class Questionnaire_detail_page(generic.DetailView):
     model = Questionnaire
     template_name = 'which_one/questionnaire_detail.html'
     context_object_name = 'Questionnaire'
+    
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
     #     post = context.get("object")
@@ -66,7 +84,7 @@ class Questionnaire_detail_page(generic.DetailView):
     # def get_context_data(self, **kwargs):
     #     context = super(Questionnaire_detail_page, self).get_context_data(**kwargs)
     #     return context
-        
+
     def post(self,request,pk):
         obj = Questionnaire.objects.get(pk=pk)
         if request.method == "POST":
@@ -78,23 +96,6 @@ class Questionnaire_detail_page(generic.DetailView):
                 obj.save()
             return render(request, 'which_one/questionnaire_detail.html',{'Questionnaire':obj})
 
-
-"""問い合わせページ"""
-def contact(request):
-    form_class = ContactForm(request.POST or None)
-    if form_class.is_valid():
-        
-        contact.name = form_class.cleaned_data['name']
-        contact.contact_type = form_class.cleaned_data['contact_type']
-        contact.contents = form_class.cleaned_data['contents']
-
-        Contact.objects.create(
-            name=contact.name,
-            contact_type=contact.contact_type,
-            contents=contact.contents,
-        )
-        return redirect('which_one:complete')
-    return render(request, 'which_one/contact.html', {'form': form_class})
 
 
 def get_client_ip(request):

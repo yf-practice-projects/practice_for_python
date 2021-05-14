@@ -3,27 +3,27 @@
 {% block content %}
     {% block title %}
     <div class="col-lg-3"></div>
-        <h1 class="col-sm-3 my-3">お問い合わせ</h1>
+        <h1 class="col-sm-10 my-4">お問い合わせ</h1>
     {% endblock %}
-<div class="container">
-    <div class="row">
-        <form method="POST">
-            {% csrf_token %}         
-            {% for field in form %}
-                <div class="form-group row">
-                    <label for="{{ field.id_for_label }}" class="col-sm-4 col-form-label my-3">
-                        <strong>{{ field.label_tag }}</strong>
-                    </label>
-                    <div class="col-sm-8">
-                        {{ field }}
+    <div class="container">
+        <div class="row">
+            <form method="POST">
+                {% csrf_token %}         
+                {% for field in form %}
+                    <div class="form-group row">
+                        <label for="{{ field.id_for_label }}" class="col-sm-5 col-form-label">
+                            <strong>{{ field.label_tag }}</strong>
+                        </label>
+                        <div class="col-sm-8">
+                            {{ field }}
+                        </div>
                     </div>
+                {% endfor %}
+                <div class="offset-sm-4 col-sm-8">
+                    <button class="btn btn-primary mb-2" type="submit">送信</button>
+                    <a href='{% url "which_one:index" %}' class='btn btn-outline-secondary mb-2'>TOPに戻る</a>
                 </div>
-            {% endfor %}
-            <div class="offset-sm-4 col-sm-8">
-                <button class="btn btn-primary" type="submit">送信</button>
-                <a href='{% url "which_one:index" %}' class='btn btn-outline-secondary'>TOPに戻る</a>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
-</div>
 {% endblock %}

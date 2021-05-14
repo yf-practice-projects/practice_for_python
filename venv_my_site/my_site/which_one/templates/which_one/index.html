@@ -1,52 +1,35 @@
 {% extends 'base.html' %}
 
+{% block description %}
+<div class="site-description">
+  <div class="mt-3 site-description-inner">
+    <p>Questionnaireは、ユーザーの投稿に対して投票を行うサービスです。</p>
+  </div>
+</div>
+{% endblock %}
+
 {% block content %}
 <!-- Page Content -->
-<div class="container">
+{% block title %}<h1 class="pt-4">Questionnaires</h1>{% endblock %}
 
-  <div class="row">
-    {% block title %}
-    <div class="col-lg-3">
-      
-      <!-- <h1 class="my-3">カテゴリー</h1> -->
-      
-      <div class="list-group my-3">
-        <a href="{% url 'which_one:new_questionnaire' %}" class="list-group-item">新規投稿</a>
-        <a href="{% url 'which_one:contact' %}" class="list-group-item">お問い合わせ</a>
-        <!-- <a href="#" class="list-group-item">Category 3</a> -->
+<div class="row">
+  {% for question in questions_list %}  
+  <div class="col-lg-4 col-md-6 mb-4 my-3">
+    <div class="card h-100">
+      <div class="card-body">
+        <h6 class="card-title">
+          <a href="{% url 'which_one:detail' question.id %}">{{ question.title }}</a>
+        </h6>
+        <p class="card-text">{{ question.overview|truncatechars:35 }}</p>
       </div>
-
-    </div>
-    {% endblock %}
-    <!-- /.col-lg-3 -->
-
-    <div class="col-lg-9">
-      {% for question in questions_list %}  
-      <div class="row">
-        <div class="col-lg-4 col-md-6 mb-4 my-3">
-          <div class="card h-100">
-            
-            <div class="card-body">
-              <h6 class="card-title">
-                <a href="{% url 'which_one:detail' question.id %}">{{ question.title }}</a>
-              </h6>
-              <p class="card-text">{{ question.overview|truncatechars:35 }}</p>
-            </div>
-            <div class="card-footer">
-              <small class="text-muted">{{question.category.name}}</small>
-            </div>
-          </div>
-        </div>
+      <div class="card-footer">
+        <div class="left-text"><small class="text-muted">{{question.category.name}}</small></div>
+        <div class="right-text"><small class="text-muted">{{ question.created_at }}</small></div>
       </div>
-      {% endfor %}
-      <!-- /.row -->
-
     </div>
-    <!-- /.col-lg-9 -->
-
   </div>
-  <!-- /.row -->
-
+  {% endfor %}
 </div>
+<!-- /.row -->
 {% endblock %}
 

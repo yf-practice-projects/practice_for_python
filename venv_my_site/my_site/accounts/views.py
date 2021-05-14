@@ -43,6 +43,7 @@ class Login_request(generic.FormView):
         return super().form_valid(form)
 
     def post(self, request):
+        form = forms.LoginForm(request.POST)
         if request.method == "POST":
             username = request.POST['username']
             password = request.POST['password']
@@ -52,6 +53,6 @@ class Login_request(generic.FormView):
                     login(request, user)
                     return redirect('which_one:index')
                 else:
-                    return render(request, 'accounts/login.html', {'error':'社員名かパスワードが間違っています'})
+                    return render(request, 'accounts/login.html', {'form':form,'error':'有効なユーザーを入力してください'})
             else:
-                return render(request, 'accounts/login.html', {'error':'ユーザーを入力してください'})
+                return render(request, 'accounts/login.html', {'form':form,'error':'ユーザー名かパスワードが間違っています'})

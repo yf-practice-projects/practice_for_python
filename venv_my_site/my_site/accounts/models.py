@@ -39,7 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         db_table = 'accounts'
         verbose_name = _('username')
     
-    username = models.CharField(_('username'),max_length=255, unique=True)
+    username = models.CharField(_('username'),max_length=40, unique=True)
 
     email = models.EmailField(_('email address'), unique=True)
 

@@ -1,0 +1,64 @@
+###概要###
+Matplotlibとは2次元グラフを描画するためのライブラリ
+
+#########
+
+///plt.plot(x,y)で折れ線グラフが作成可能
+///plt.show()で表示可能
+
+///fig, axe = plt.subplots(2)でサブプロットを２つ配置可能
+///fig, axes = plt.subplots(2,2)でサブプロットを2行2列で配置可能
+
+///fig, axes = plt.subplots(ncols=2)で1行2列に配置
+///fig, axes = plt.subplots(nrows=2)で2行1列に配置
+
+///matplotlib.styleでグラフの表示スタイルを指定可能
+
+///axes[0].legend(loc='best' or etc...)で凡例を表示可能
+///etc... = 10種類存在
+
+///png,pdf,ps,eps,svgのファイル形式で出力可能
+ex)
+fig.savefig('sample.png')
+
+///axes[0].barで棒グラフを作成
+///axes[0].barhで横向き棒グラフを描画可能
+
+///axes[0].scatter(x,y)で散布図を描画
+///通常、丸で描画されるが、marker引数で指定可能
+
+///n, bins, patches = axes[0].hist(x)でヒストグラムを描画可能
+//nには各棒の度数(要素数)が格納
+//binsには棒の境界値
+//patchesには棒の描画情報が格納
+
+///axes[0].hist(x,bins=25)で棒の数をデフォルト値(10)から変更可能
+///axes[0].hist(x,orientation='horizontal')で横向きのヒストグラムを描画可能
+
+///ヒストグラムでは複数のデータを指定した場合、
+///自動的に横並びにできる。
+///axes[0].hist((x1,x2),stacked=True)で積み上げたヒストグラムを描画可能
+
+///axe.boxplot()で箱ひげ図を描画可能
+///vert引数にFalseを指定した場合横向きに描画。
+
+///axe.pie()で円グラフを描画
+///axe.axis('equal')でアスペクト比を保持して描画可能にする。
+///デフォルトでは3時の位置から反時計に各要素が配置される。
+///12時の位置から始めるには、startangle引数に90を指定した場合横向きに描画。
+///時計回りに配置するには、counterclock引数をFalseに指定する。
+///影をつけるには、shadow引数をTrueに指定
+///値をパーセント表記にするには、autopct引数を'%1.2f%%'のように指定すると可能
+///explode引数に値を指定すると円グラフの一部の値を目立たせられる。
+
+///plotメソッド内でlinestyle引数を指定すると線の種類を変更可能
+///plotメソッド内でcolor引数を指定すると線の色を変更可能
+
+///axis.set_xlabel()などにweight引数やfamily引数を指定するとフォントの種類などが変更可能
+///フォントスタイルは辞書で定義することも可能
+
+///axis.text()でテキストを描画可能
+
+///DataFrameをグラフ化可能
+///df.plot()で折れ線グラフ
+///df.plot.bar()で棒グラフ

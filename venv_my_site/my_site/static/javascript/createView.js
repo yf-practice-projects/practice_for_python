@@ -25,8 +25,8 @@ function imgPreView(event) {
         if ("id_image_B" == eventID) {
             img.setAttribute("id", "previewImage_B");
         }
-        img.setAttribute("width", "500");
-        img.setAttribute("height", "500");
+        img.setAttribute("width", "250");
+        img.setAttribute("height", "auto");
         preview.appendChild(img);
     };
 
