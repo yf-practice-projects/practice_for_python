@@ -1,0 +1,16 @@
+#プロジェクト全体から除外
+__pycache__
+*.pyc
+*.pyo
+img
+settings.py
+Scripts
+admin.py
+pyvenv.cfg
+.vscode
+
+#root起点に除外
+config/
+media/
+Lib/
+Include/
