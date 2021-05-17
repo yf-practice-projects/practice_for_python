@@ -7,10 +7,10 @@ settings.py
 Scripts
 admin.py
 pyvenv.cfg
-.vscode
+
 
 #root起点に除外
-config/
+config
 media/
 Lib/
 Include/
