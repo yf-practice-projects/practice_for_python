@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+{% block title %}<title>Logout</title>{% endblock %}
+<div class="ui grid stackable">
+    <div class="eleven wide column">
+        <div class="ui segment">
+            <div class="content">
+                <div class="header"><h3>ログアウトしました。</h3></div>
+                <p><a href="{% url 'which_one:index' %}">TOPへ戻る</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

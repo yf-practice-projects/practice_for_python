@@ -1,0 +1,62 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div>
+    {% block title %}<h1>新規作成</h1>{% endblock %}
+    <script type="text/javascript" src="{% static 'javascript/createView.js' %}"></script>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            <table>
+                <h2>{{ form.title.label }}</h2>
+                <h5 class="mb-4">{{ form.title }}</h5>
+            </table>
+            <table>
+                <h2>{{form.overview.label}}</h2>
+                <h5 class="mb-4">{{ form.overview }}</h5>
+            </table>
+            <table>
+                <h2>アンケート対象</h2>
+                <div class="mb-2">{{ form.category }}</div>
+            </table>
+            
+            <script>
+                function categoryView(event) {
+                    var eventID = event.target.selectedIndex;
+                    if (eventID == 1) {
+                        document.getElementById("questionnaire").innerHTML =
+                            `<div>
+                                <span>{{ form.text_A }}</span>
+                                <span>{{ form.text_B }}</span>
+                            </div>`
+                        document.getElementById("id_text_A").setAttribute("required","")
+                        document.getElementById("id_text_B").setAttribute("required","")
+                    }
+                    else if (eventID == 2){
+                        document.getElementById("questionnaire").innerHTML =
+                        `<table>
+                            <td>{{ form.image_A }}</td>
+                            <td>{{ form.image_B }}</td>
+                        </table>
+                        <table>
+                            <td><div id="preview_A"></div></td>
+                            <td><div id="preview_B"></div></td>
+                        </table>`
+                        document.getElementById("id_image_A").setAttribute("required","")
+                        document.getElementById("id_image_B").setAttribute("required","")
+                    }
+                    else {
+                        document.getElementById("questionnaire").innerHTML =""
+                    }         
+                }   
+            </script>
+
+            <table id="questionnaire"></table>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2 mb-2">送信</button>
+        <a href='{% url "which_one:index" %}' class='btn btn-outline-secondary mt-2 mb-2'>TOPに戻る</a>
+    </form>
+</div>
+
+{% endblock %}
