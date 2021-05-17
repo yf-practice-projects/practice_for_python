@@ -6,6 +6,7 @@ img
 settings.py
 Scripts
 admin.py
+pyvenv.cfg
 
 #root起点に除外
 /config

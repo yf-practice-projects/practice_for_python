@@ -6,6 +6,7 @@ from django.views.generic import TemplateView,CreateView
 from django.contrib.auth import login,authenticate
 from django.urls import reverse_lazy
 from django.views import generic
+from .models import User
 from . import forms
 
 # class LoginView(LoginView):
@@ -24,6 +25,13 @@ class UserCreateView(CreateView):
     form_class = forms.UserCreationForm
     template_name = "accounts/create.html"
     success_url = reverse_lazy("which_one:index")
+    context_object_name = 'User'    
+    
+    def form_valid(self, form):
+        user = form.save() # formの情報を保存
+        login(self.request, user) # 認証
+        self.object = user 
+        return redirect(self.get_success_url())
 
 class SettingsView():
     pass
